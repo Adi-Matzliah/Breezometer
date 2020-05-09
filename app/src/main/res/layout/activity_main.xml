@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.MainActivity"
+    xmlns:view="http://schemas.android.com/apk/res-auto">
+
+    <data class="MainActivityBinding">
+
+        <variable
+            name="viewModel"
+            type="com.test.actionitem.breezometer.viewmodel.MainViewModel" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="85"
+            android:text="@{viewModel.airQuality.toString()}"
+            android:textSize="40sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.cardiomood.android.controls.gauge.SpeedometerGauge
+            android:id="@+id/speedometer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_quality" />
+
+        <TextView
+            android:id="@+id/tv_quality_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            view:drawBackgroundColor="@{viewModel.qualityColor}"
+            android:text="@{@string/air_quality_text(viewModel.categoryQuality)}"
+            tools:text="@string/air_quality_text"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/speedometer" />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/refresh_btn_text"
+            android:onClick="@{() -> viewModel.onBtnRefreshClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_quality_message" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
